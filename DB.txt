@@ -29,3 +29,14 @@ SELECT
     select_list     - 선택하려는 데이터 필드
 FROM
     table_name;     - 어디 테이블인지 이름 지정 
+
+---------------------------------------------------------------
+
+ORDER BY Statement  - 정렬
+                    - 설정안하면 오름차순 기본값
+FROM 절 뒤에 위치   
+
+ORDER BY
+    column1 [ASC|DESC]
+
+SELECT FirstName from employees ORDER BY "FirstName" ASC;
