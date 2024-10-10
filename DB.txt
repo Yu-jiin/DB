@@ -48,3 +48,7 @@ FILTER
 SELECT Statement 실행 순서
 
 FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT
+
+----------------------------------------------------------------------------
+
+오후 수업 
