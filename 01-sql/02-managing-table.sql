@@ -31,9 +31,11 @@ ALTER TABLE examples
 RENAME COLUMN Adress TO PostCode;
 
 -- 2.3 RENAME TO
+ALTER TABLE examples
+RENAME TO new_examples;
 
 -- 3. Delete a table
-
+DROP TABLE new_examples;
 
 -- sqlite는 컬럼 수정 불가
 -- 대신 테이블의 이름을 바꾸고, 새 테이블을 만들고 데이터를 새 테이블에 복사하는 방식을 사용
