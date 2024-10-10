@@ -1,3 +1,4 @@
+-- Active: 1728539230878@@127.0.0.1@3306
 -- 공통
 SELECT * FROM articles;
 SELECT * FROM users;
@@ -18,6 +19,7 @@ CREATE TABLE articles (
   content VARCHAR(100) NOT NULL,
   userId INTEGER NOT NULL,
   FOREIGN KEY (userId) 
+    -- userID 외래키는 users 테이블의 id를 참조 
     REFERENCES users(id)
 );
 
@@ -39,5 +41,21 @@ VALUES
 
 
 -- INNER JOIN
+SELECT * 
+FROM articles
+INNER JOIN users
+  ON users.id = articles.userID;
+
+
+-- 하석주가 작성한 게시글 
+SELECT * 
+FROM articles
+INNER JOIN users
+  ON users.id = articles.userID
+WHERE users.name = '하석주';
 
 -- LEFT JOIN
+SELECT *
+FROM articles
+LEFT JOIN users
+  ON users.id = articles."userId";
