@@ -1,0 +1,16 @@
+DATABASE        - 체계적인 데이터 모음
+DATA            - 저장이나 처리에 효율적인 형태로 변환된 정보
+FIELD(column)   - 고유한 데이터 형식이 지정 
+RECORD(row)     - 구체적인 데이터값 저장
+Primary  Key    - 기본 키 (식별자)
+Foreign Key     - 외래키 (기본 키 참조, 서로 다른 테이블 간 관계 생성)
+
+RDBMS           - DB를 관리하는 SW 프로그램
+                - ex) SQLite, MySql, OracleDatabase
+
+SQL             - DB에 정보를 저장하고 처리하기 위한 프로그래밍 언어
+
+SQL Syntax
+    1. 대소문자를 구분하지 않음 (하지만 대문자 권장)
+    2. 각 SQL Statments 끝에는 세미콜론(';') 필요 
+    
