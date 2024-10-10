@@ -40,3 +40,11 @@ ORDER BY
     column1 [ASC|DESC]
 
 SELECT FirstName from employees ORDER BY "FirstName" ASC;
+
+FILTER
+    - DISTINCT  중복 제거
+
+
+SELECT Statement 실행 순서
+
+FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT
