@@ -13,4 +13,19 @@ SQL             - DB에 정보를 저장하고 처리하기 위한 프로그래�
 SQL Syntax
     1. 대소문자를 구분하지 않음 (하지만 대문자 권장)
     2. 각 SQL Statments 끝에는 세미콜론(';') 필요 
-    
+        SELECT column_name FROM table_name;
+        - SELECT Statement,  SELECT, FROM 2개의 keyword 구성
+
+DDL(구조)    - CREATE, DROP, ALTER
+DQL(검색)    - SELECT
+DML(조작)    - INSERT, UPDATE, DELETE
+DCL(제어)    - COMMIT, ROLLBACK, GRANT, REVOKE
+
+----------------------------------------------------------------
+
+SELECT Statement    - 테이블에서 데이터를 조회
+
+SELECT 
+    select_list     - 선택하려는 데이터 필드
+FROM
+    table_name;     - 어디 테이블인지 이름 지정 
