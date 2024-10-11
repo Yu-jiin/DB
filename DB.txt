@@ -89,3 +89,6 @@ CREATE TABLE articles (
   FOREIGN KEY (userId) 
     REFERENCES users(id)
 );
+
+-----------------------------------------------------------------
+
