@@ -12,6 +12,7 @@ class Article(models.Model):
     updated_at = models.DateTimeField(auto_now=True)
 
 class Comment(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     # 참조하려는 대상의 단수형을 외래키로
     article = models.ForeignKey(Article, on_delete=models.CASCADE)
     content = models.CharField(max_length=200)

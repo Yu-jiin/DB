@@ -86,6 +86,7 @@ def comments_create(request, pk):
         # 근데 comment instance는 save 메서드가 호출되어야 생성됨 그래서 뭐 하나 만들어줌 장고가
         comment = comment_form.save(commit=False)
         comment.article = article
+        comment.user = request.user
         comment.save()
         return redirect('articles:detail', article.pk)
     context = {
@@ -104,6 +105,7 @@ def comments_create(request, pk):
 # 두번째 방법 
 def comments_delete(request, article_pk, comment_pk):
     comment = Comment.objects.get(pk=comment_pk)
-    article = Article.objects.get(pk=article_pk)
-    comment.delete()
+    if request.user == comment.user:
+        article = Article.objects.get(pk=article_pk)
+        comment.delete()
     return redirect('articles:detail', article_pk)

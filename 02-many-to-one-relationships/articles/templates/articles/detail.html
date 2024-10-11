@@ -31,12 +31,14 @@
   <ul>
     {% for comment in comments %}
       <li>
-        {{comment.content}}
-        {% comment %} <form action="{% url "articles:comments_delete" article.pk %}" method = 'POST'> {% endcomment %}
-        <form action="{% url "articles:comments_delete" article.pk comment.pk %}" method = 'POST'>
-          {% csrf_token %}
-          <input type="submit" value='삭제'>
-        </form>
+        {{comment.user}} | {{comment.content}}
+        {% if request.user == comment.user %}
+          {% comment %} <form action="{% url "articles:comments_delete" article.pk %}" method = 'POST'> {% endcomment %}
+          <form action="{% url "articles:comments_delete" article.pk comment.pk %}" method = 'POST'>
+            {% csrf_token %}
+            <input type="submit" value='삭제'>
+          </form>
+        {% endif %}
       </li>
     {% endfor %}
   </ul>
