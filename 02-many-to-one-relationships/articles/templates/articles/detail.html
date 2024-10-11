@@ -19,6 +19,15 @@
     {% csrf_token %}
     <input type="submit" value="삭제">
   </form>
+
+  <hr>
+  <form action="#" method = 'POST'>
+    {% csrf_token %}
+    {{comment_form}}
+    <input type="submit">
+  </form>
+  <hr>
+
   <a href="{% url "articles:index" %}">[back]</a>
 </body>
 </html>
