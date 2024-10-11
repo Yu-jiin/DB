@@ -87,8 +87,15 @@ def comments_create(request, pk):
     return render(request, 'articles/detail.html', context)
 
 
-def comments_delete(request, pk):
-    comment = Comment.objects.get(pk=pk)
-    article_pk = comment.article.pk
+# def comments_delete(request, pk):
+#     comment = Comment.objects.get(pk=pk)
+#     article_pk = comment.article.pk
+#     comment.delete()
+#     return redirect('articles:detail', article_pk)
+
+# 두번째 방법 
+def comments_delete(request, article_pk, comment_pk):
+    comment = Comment.objects.get(pk=comment_pk)
+    article = Article.objects.get(pk=article_pk)
     comment.delete()
     return redirect('articles:detail', article_pk)

@@ -23,11 +23,13 @@
   <hr>
 
   <h4>댓글 목록</h4>
+  <p>{{comments|length}}개의 댓글이 있습니다.</p>
   <ul>
     {% for comment in comments %}
       <li>
         {{comment.content}}
-        <form action="#" method = 'POST'>
+        {% comment %} <form action="{% url "articles:comments_delete" article.pk %}" method = 'POST'> {% endcomment %}
+        <form action="{% url "articles:comments_delete" article.pk comment.pk %}" method = 'POST'>
           {% csrf_token %}
           <input type="submit" value='삭제'>
         </form>
