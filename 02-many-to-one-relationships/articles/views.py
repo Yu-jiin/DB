@@ -32,7 +32,10 @@ def create(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
         if form.is_valid():
-            article = form.save()
+            # 
+            article = form.save(commit=False)
+            article.user = request.user
+            article.save()
             return redirect('articles:detail', article.pk)
     else:
         form = ArticleForm()
@@ -45,24 +48,29 @@ def create(request):
 @login_required
 def update(request, pk):
     article = Article.objects.get(pk=pk)
-    if request.method == 'POST':
-        form = ArticleForm(request.POST, instance=article)
-        if form.is_valid():
-            form.save()
-            return redirect('articles:detail', article.pk)
+    # 본인 게시글만 수정하게 끔 !! 
+    if request.user == article.user:
+        if request.method == 'POST':
+            form = ArticleForm(request.POST, instance=article)
+            if form.is_valid():
+                form.save()
+                return redirect('articles:detail', article.pk)
+        else:
+            form = ArticleForm(instance=article)
+        context = {
+            'article': article,
+            'form': form,
+        }
     else:
-        form = ArticleForm(instance=article)
-    context = {
-        'article': article,
-        'form': form,
-    }
+        return redirect('articles:index')
     return render(request, 'articles/update.html', context)
 
 
 @login_required
 def delete(request, pk):
     article = Article.objects.get(pk=pk)
-    article.delete()
+    if request.user == article.user:
+        article.delete()
     return redirect('articles:index')
 
 
