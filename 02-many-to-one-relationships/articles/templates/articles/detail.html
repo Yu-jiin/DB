@@ -31,7 +31,9 @@
   <ul>
     {% for comment in comments %}
       <li>
-        {{comment.user}} | {{comment.content}}
+        <p>
+          {{comment.user.username}} | {{comment.content}}
+        </p>
         {% if request.user == comment.user %}
           {% comment %} <form action="{% url "articles:comments_delete" article.pk %}" method = 'POST'> {% endcomment %}
           <form action="{% url "articles:comments_delete" article.pk comment.pk %}" method = 'POST'>

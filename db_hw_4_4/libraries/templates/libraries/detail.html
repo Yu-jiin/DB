@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  {% if request.user.is_authenticated %}
+  <p>안녕하세요 {{ user.username }}</p>
+  <form action="{% url "accounts:logout" %}" method="POST">
+    {% csrf_token %}
+    <input type="submit" value="LOGOUT">
+  </form>
+  {% else %}
+    <a href="{% url "accounts:login" %}">LOGIN</a>
+  {% endif %}
+
+  <h1>책 상세 정보</h1>
+  <p>등록 번호 : {{ book.pk }}</p>
+  <p>제목 : {{ book.title }}</p>
+  <p>설명 : {{ book.description }}</p>
+  <hr>
+
+  <h3>리뷰 등록</h3>
+  {% if request.user.is_authenticated %}
+  <form action="{% url "libraries:review" book.pk %}" method = 'POST'>
+    {% csrf_token %}
+    {{reviewForm.as_p}}
+    <input type="submit" value="리뷰 작성">
+  </form>
+  {% else %}
+  <p>로그인 후 작성해주세요.</p>
+  {% endif %}
+  
+  <hr>
+
+  <h3> 리뷰 전체 목록 </h3>
+  <ul>
+    {% for review in reviews %}
+      <li>
+        <p>
+          {{review.user.username}} | {{review.content}}
+        </p>
+        {% if request.user == review.user %}
+          <form action="{% url "libraries:review_delete" book.pk review.pk %}" method = 'POST'>
+            {% csrf_token %}
+            <input type="submit" value='삭제'>
+          </form>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+
+
+  <a href="{% url "libraries:index" %}">[BACK]</a>
+{% endblock content %}

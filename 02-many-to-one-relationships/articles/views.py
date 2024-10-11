@@ -1,6 +1,10 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
+# view decorators
+from django.views.decorators.http import require_http_methods, require_POST
+from django.views.decorators.http import require_safe
+
 from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
@@ -28,6 +32,7 @@ def detail(request, pk):
 
 
 @login_required
+@require_http_methods(['GET', 'POST'])
 def create(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST)
@@ -65,7 +70,8 @@ def update(request, pk):
         return redirect('articles:index')
     return render(request, 'articles/update.html', context)
 
-
+# POST요청만 허용
+@require_POST
 @login_required
 def delete(request, pk):
     article = Article.objects.get(pk=pk)
