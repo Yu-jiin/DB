@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 
-from .models import Article
+from .models import Article, Comment
 from .forms import ArticleForm, CommentForm
 
 
@@ -17,9 +17,12 @@ def index(request):
 def detail(request, pk):
     article = Article.objects.get(pk=pk)
     comment_form = CommentForm()
+    # 해당 게시글의 작성된 모든 댓글 조회 
+    comments = article.comment_set.all()
     context = {
         'article': article,
         'comment_form' : comment_form,
+        'comments' : comments,
     }
     return render(request, 'articles/detail.html', context)
 
@@ -61,3 +64,31 @@ def delete(request, pk):
     article = Article.objects.get(pk=pk)
     article.delete()
     return redirect('articles:index')
+
+
+def comments_create(request, pk):
+    # 어떤 게시글인지 조회 
+    article = Article.objects.get(pk=pk)
+    comment_form = CommentForm(request.POST)
+
+    if comment_form.is_valid():
+        # 외래키 넣으려면 2개 필요
+        # 1. comment 인스턴스 필요
+        # 2. save 메서드가 호출 되기 전 
+        # 근데 comment instance는 save 메서드가 호출되어야 생성됨 그래서 뭐 하나 만들어줌 장고가
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment.save()
+        return redirect('articles:detail', article.pk)
+    context = {
+        'article' : article,
+        'comment_form' : comment_form,
+    }
+    return render(request, 'articles/detail.html', context)
+
+
+def comments_delete(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    article_pk = comment.article.pk
+    comment.delete()
+    return redirect('articles:detail', article_pk)

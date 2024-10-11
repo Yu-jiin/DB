@@ -113,3 +113,29 @@ article.comment_set.all()
 N : 1 관계에서 생성되는 Related manager 이름은 "모델명_set" 으로 자동 생성
 특정 댓글의 게시글 참조         - comment.article
 특정 게시글의 댓글 목록 참조    - article.comment_set.all()
+
+
+    if comment_form.is_valid():
+        # 외래키 넣으려면 2개 필요
+        # 1. comment 인스턴스 필요
+        # 2. save 메서드가 호출 되기 전 
+        # 근데 comment instance는 save 메서드가 호출되어야 생성됨 그래서 뭐 하나 만들어줌 장고가
+        comment = comment_form.save(commit=False)
+        comment.article = article
+        comment.save()
+        return redirect('articles:detail')
+    context = {
+        'article' : article,
+        'comment_form' : comment_form,
+    }
+    return render(request, 'articles/detail.html', context)
+
+save의 commit 인자를 활용해서 외래키 추가 !! 
+
+
+
+def comments_delete(request, pk):
+    comment = Comment.objects.get(pk=pk)
+    article_pk = comment.article.pk
+    comment.delete()
+    return redirect('articles:detail', article_pk)

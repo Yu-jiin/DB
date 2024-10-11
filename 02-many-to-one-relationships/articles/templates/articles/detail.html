@@ -21,7 +21,23 @@
   </form>
 
   <hr>
-  <form action="#" method = 'POST'>
+
+  <h4>댓글 목록</h4>
+  <ul>
+    {% for comment in comments %}
+      <li>
+        {{comment.content}}
+        <form action="#" method = 'POST'>
+          {% csrf_token %}
+          <input type="submit" value='삭제'>
+        </form>
+      </li>
+    {% endfor %}
+  </ul>
+
+  <hr>
+
+  <form action="{% url "articles:comments_create" article.pk %}" method = 'POST'>
     {% csrf_token %}
     {{comment_form}}
     <input type="submit">
