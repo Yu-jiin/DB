@@ -22,4 +22,5 @@ doctor2 = Doctor.objects.create(name='barbie')
 patient1 = Patient.objects.create(name='carol', doctor=doctor1)
 patient2 = Patient.objects.create(name='duke', doctor=doctor2)
 patient3 = Patient.objects.create(name='carol', doctor=doctor2)
-patient4 = Patient.objects.create(name='duke', doctor=doctor1, doctor2)
+# 당연히 불가능 .. 
+# patient4 = Patient.objects.create(name='duke', doctor=doctor1, doctor2)

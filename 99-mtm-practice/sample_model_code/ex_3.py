@@ -25,15 +25,18 @@ doctor1 = Doctor.objects.create(name='allie')
 patient1 = Patient.objects.create(name='carol')
 patient2 = Patient.objects.create(name='duke')
 
+# 양쪽 다  데이터 추가 및 삭제 가능 
 patient1.doctors.add(doctor1)
 patient1.doctors.all()
 doctor1.patient_set.all()
+
 
 doctor1.patient_set.add(patient2)
 doctor1.patient_set.all()
 patient2.doctors.all()
 patient1.doctors.all()
 
+# doctor가 patient1 진료 예약 취소 역참조로
 doctor1.patient_set.remove(patient1)
 doctor1.patient_set.all()
 patient1.doctors.all()

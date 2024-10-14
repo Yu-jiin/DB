@@ -144,3 +144,75 @@ def comments_delete(request, pk):
 View decorators = 지정되지않은 method로 요청 들어오면 405 반환
 
 ----------------------------------------------------------------
+
+ManyToManyField() - M:N 관계 설정 모델 필드
+
+class Patient(models.Model):
+    # ManyToManyFields 작성
+    doctors = models.ManyToManyField(Doctor)
+    
+    name = models.TextField()
+    def __str__(self):
+        return f'{self.pk}번 환자 {self.name}'
+
+# 양쪽 다  데이터 추가 및 삭제 가능 
+patient1.doctors.add(doctor1)
+patient1.doctors.all()
+doctor1.patient_set.all()
+
+
+doctor1.patient_set.add(patient2)
+doctor1.patient_set.all()
+patient2.doctors.all()
+patient1.doctors.all()
+
+# doctor가 patient1 진료 예약 취소 역참조로
+doctor1.patient_set.remove(patient1)
+doctor1.patient_set.all()
+patient1.doctors.all()
+
+patient2.patient_set.remove(doctor1)
+patient2.doctors.all()
+doctor1.patient_set.all()
+
+
+through argument
+    - 중개 테이블에 추가 데이터를 사용해 M : N 관계 형성 
+
+class Doctor(models.Model):
+    name = models.TextField()
+
+    def __str__(self):
+        return f'{self.pk}번 의사 {self.name}'
+
+
+class Patient(models.Model):
+    doctors = models.ManyToManyField(Doctor, through='Reservation')
+    name = models.TextField()
+
+    def __str__(self):
+        return f'{self.pk}번 환자 {self.name}'
+
+
+class Reservation(models.Model):
+    doctor = models.ForeignKey(Doctor, on_delete=models.CASCADE)
+    patient = models.ForeignKey(Patient, on_delete=models.CASCADE)
+    symptom = models.TextField()
+    reserved_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return f'{self.doctor.pk}번 의사의 {self.patient.pk}번 환자'
+
+# 1. Reservation class를 통한 예약 생성
+reservation1 = Reservation(doctor=doctor1, patient=patient1, symptom='headache')
+reservation1.save()
+doctor1.patient_set.all()
+patient1.doctors.all()
+
+# 2. Patient 객체를 통한 예약 생성
+patient2.doctors.add(doctor1, through_defaults={'symptom': 'flu'})
+doctor1.patient_set.all()
+patient2.doctors.all()
+
+doctor1.patient_set.remove(patient1)
+patient2.doctors.remove(doctor1)
