@@ -18,3 +18,6 @@ patient1.doctors.add(doctor1)
 patient1.doctors.all()
 이고는 역참조 ! 
 doctor1.patient_set.all()
+
+
+241014 온실 끝 
