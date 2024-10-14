@@ -142,3 +142,5 @@ def comments_delete(request, pk):
 
 
 View decorators = 지정되지않은 method로 요청 들어오면 405 반환
+
+----------------------------------------------------------------
