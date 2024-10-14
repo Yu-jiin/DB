@@ -210,9 +210,18 @@ doctor1.patient_set.all()
 patient1.doctors.all()
 
 # 2. Patient 객체를 통한 예약 생성
+# through_defaults 키워드 인자가 필요하며, dict로 넣어주기
 patient2.doctors.add(doctor1, through_defaults={'symptom': 'flu'})
 doctor1.patient_set.all()
 patient2.doctors.all()
 
 doctor1.patient_set.remove(patient1)
 patient2.doctors.remove(doctor1)
+
+
+M:N 관계 주요 사항
+    - M:N 관계로 맺어진 두 테이블에는 물리적 변화 X
+    - ManyToManyField는 중개 테이블을 자동으로 생성
+    - ManyToManyField는 M:N 관계를 맺는 두 모델 어디에 위치해도 상관 X
+    - N:1은 완전 종속 관계지만 M:N은 종속적인 관계가 아니며,
+      의사에게 진찰받는 환자, 환자를 진찰하는 의사 이렇게 두가지 형태 모두 표현 가능 
