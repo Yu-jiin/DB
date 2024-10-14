@@ -251,3 +251,10 @@ class Article(models.Model):
 like_users 필드 생성시 자동으로 역참조 매니저 .article_set이 생성되는데,
 이미 같은 이름 Article-User 관계에서 사용중이므로 
 related_name 으로 이름 재정의 필요 
+
+
+User-Article간 사용 가능한 전체 related_manager
+    - article.user          = 게시글 작성한 유저
+    - user.article_set      = 유저가 작성한 게시글(역참조)
+    - article.like_users    = 게시글을 좋아요 한 유저
+    - user.like_articles    = 유저가 좋아요 한 게시글 
