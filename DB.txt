@@ -277,4 +277,18 @@ Fixtures 파일을 직접 만들지 마 !
 app_name/fixtures/ 가 약속된 경로 
 
 더미데이터 불러오기 
+한방에 로드 가능 !! 
 $ python manage.py loaddata articles.json users.json comments.json
+
+python -Xutf8 manage.py dumpdata [생략]
+Or
+메모장 활용해서 메모장으로 json 열고 
+다름이름으로 저장 클릭 
+인코딩을 UTF8로 선택 후 저장 
+
+ --------------------------------------------------------------------
+
+더미데이터 최적화
+    - 같은 결과를 얻기 위해 DB측에 보내는 query 개수 줄이기
+
+    
