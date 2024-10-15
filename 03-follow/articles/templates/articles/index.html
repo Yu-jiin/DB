@@ -10,7 +10,7 @@
 
   {% if request.user.is_authenticated %}
     <p>안녕하세요 {{ user.username }}</p>
-    <a href="{% url "accounts:profile" request.user.username %}">
+    <a href="{% url "accounts:profile" user.username %}">
       [My Profile]
     </a>
 
@@ -31,7 +31,7 @@
 
   
   {% for article in articles %}
-  <a href="{% url "accounts:profile" request.user.username %}">
+  <a href="{% url "accounts:profile" article.user.username %}">
     <p>작성자 : {{article.user.username}}</p>
  </a>
     <p>글 번호: {{ article.pk }}</p>
