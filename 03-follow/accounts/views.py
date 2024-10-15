@@ -87,6 +87,7 @@ def change_password(request, user_pk):
 
 from django.contrib.auth import get_user_model
 
+
 def profile(request, username):
     # 어떤 유저의 프로필을 보여줄건지 유저를 조회(username 사용해서)
     User = get_user_model()
@@ -95,3 +96,21 @@ def profile(request, username):
         'person' : person,
     }
     return render(request, 'accounts/profile.html', context)
+
+
+@login_required
+def follow(request, user_pk):
+    User = get_user_model()
+    # 팔로 요청 보내는 대상
+    you = User.objects.get(pk=user_pk)
+    # 나 ! 
+    me = request.user
+    if you != me:
+        # you의 입장해서는 역참조를 해야함 
+        if me in you.followers.all():
+            you.followers.remove(me)
+            # me.followings.remove(you) 도 똑같음 
+        else:
+            you.followers.add(me)
+            # me.followings.add(you)
+    return redirect('accounts:profile', you.username)
