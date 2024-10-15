@@ -1,0 +1,26 @@
+[
+{
+    "model": "articles.article",
+    "pk": 1,
+    "fields": {
+        "user": 1,
+        "title": "aaa",
+        "content": "aaaaaaaaaaaaaa",
+        "created_at": "2024-10-15T00:34:36.350Z",
+        "updated_at": "2024-10-15T00:34:36.350Z",
+        "like_users": []
+    }
+},
+{
+    "model": "articles.article",
+    "pk": 2,
+    "fields": {
+        "user": 1,
+        "title": "@@@@@@@@@",
+        "content": "222222222",
+        "created_at": "2024-10-15T00:35:21.282Z",
+        "updated_at": "2024-10-15T00:35:21.282Z",
+        "like_users": []
+    }
+}
+]

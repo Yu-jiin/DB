@@ -258,3 +258,23 @@ User-Article간 사용 가능한 전체 related_manager
     - user.article_set      = 유저가 작성한 게시글(역참조)
     - article.like_users    = 게시글을 좋아요 한 유저
     - user.like_articles    = 유저가 좋아요 한 게시글 
+
+
+
+
+---------- dumpdata 만들기
+
+게시글 dump
+$ python manage.py dumpdata --indent 4 articles.article > articles.json
+
+댓글 dump
+$ python manage.py dumpdata --indent 4 articles.comment > comments.json
+
+유저 dump
+$ python manage.py dumpdata --indent 4 accounts.user > users.json
+
+Fixtures 파일을 직접 만들지 마 ! 
+app_name/fixtures/ 가 약속된 경로 
+
+더미데이터 불러오기 
+$ python manage.py loaddata articles.json users.json comments.json
